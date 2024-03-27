@@ -1,20 +1,47 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import React from 'react';
+import BottomTabsNavigator from './src/ui libraries/navigator/BottomTabsNavigator';
+import { StyleSheet } from 'react-native';
+import { GluestackUIProvider } from "@gluestack-ui/themed"
+import { config } from "@gluestack-ui/config"
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function App() {
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <GluestackUIProvider config={config}>
+        <NavigationContainer>
+          <BottomTabsNavigator />
+        </NavigationContainer>
+      </GluestackUIProvider>
+    </GestureHandlerRootView>
+
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
+  text: {
+    fontSize: 20,
+  },
+  lightContainer: {
+    backgroundColor: '#FFFFFF',
+  },
+  darkContainer: {
+    backgroundColor: '#242c40',
+  },
+  lightThemeText: {
+    color: '#242c40',
+  },
+  darkThemeText: {
+    color: '#FFFFFF',
+  },
 });
+
