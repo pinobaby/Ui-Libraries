@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Platform, SafeAreaView, FlatList } from 'react-native';
 import { StyleSheet } from 'react-native';
-import { Actionsheet, ActionsheetBackdrop, ActionsheetContent, ActionsheetDragIndicator, ActionsheetDragIndicatorWrapper, AddIcon, Box, Button, ButtonGroup, ButtonIcon, ButtonText, Center, FormControl, FormControlLabel, FormControlLabelText, HStack, Heading, Image, Input, InputField, InputIcon, InputSlot, KeyboardAvoidingView, SearchIcon, Slider, SliderFilledTrack, SliderThumb, SliderTrack, VStack, } from '@gluestack-ui/themed';
-import { useNavigation } from '@react-navigation/native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { Image } from '@gluestack-ui/themed';
+
 
 const BASE_URI = 'https://source.unsplash.com/random?sig=';
 
@@ -26,6 +25,7 @@ const HomeScreen = () => {
         data={data}
         style={styles.content}
         onEndReached={fetchMore}
+
         keyExtractor={e => e}
         renderItem={({ item }) => (
           <Image source={{ uri: BASE_URI + item }} style={styles.item} />
@@ -48,7 +48,10 @@ const styles = StyleSheet.create({
   item: {
     aspectRatio: 1,
     width: '100%',
+    height: '100%',
     flex: 1,
+    marginTop: 30,
+    marginBottom: 30,
   },
   content: {
     width: '100%',
