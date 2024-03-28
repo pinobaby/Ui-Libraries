@@ -1,80 +1,54 @@
-import React, { useState } from 'react'
-import { View, Text } from 'react-native'
-import { StyleSheet } from 'react-native';
-import { ButtonText, Center, CloseIcon, Heading, Icon, Modal, ModalBackdrop, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, Button } from '@gluestack-ui/themed';
+import React, { useEffect, useState } from 'react'
+import { View, Text, SafeAreaView, FlatList } from 'react-native'
+import { Image, Input, InputField, InputIcon, InputSlot, SearchIcon } from '@gluestack-ui/themed';
+
+const BASE_URI = 'https://source.unsplash.com/random?sig=';
 
 const Tab1 = () => {
 
-  const [showModal, setShowModal] = useState(false)
-  console.log(showModal)
-  const ref = React.useRef(null)
+  const [data, setDate] = useState<number[]>([]);
+
+  useEffect(() => {
+    fetchMore();
+  }, []);
+  const fetchMore = () => {
+    setDate(prevState => [
+      ...prevState,
+      ...Array.from({ length: 20 }).map((_, i) => i + 1 + prevState.length),
+    ]);
+  };
 
   return (
-    <Center h={300}>
-      <Button
-        style={{ backgroundColor: 'green' }}
-        onPress={() => setShowModal(true)}>
-        <ButtonText>Show Modal</ButtonText>
-      </Button>
-      <Modal
-        isOpen={showModal}
-        onClose={() => {
-          setShowModal(false)
-        }}
-        finalFocusRef={ref}
-      >
-        <ModalBackdrop />
-        <ModalContent>
-          <ModalHeader>
-            <Heading size="lg">Engage with Modals</Heading>
-            <ModalCloseButton>
-              <Icon as={CloseIcon} />
-            </ModalCloseButton>
-          </ModalHeader>
-          <ModalBody>
-            <Text>
-              Elevate user interactions with our versatile modals. Seamlessly
-              integrate notifications, forms, and media displays. Make an impact
-              effortlessly.
-            </Text>
-          </ModalBody>
-          <ModalFooter>
-            <Button
-              variant="outline"
-              size="sm"
-              action="secondary"
-              mr="$3"
-              onPress={() => {
-                setShowModal(false)
-              }}
-            >
-              <ButtonText>Cancel</ButtonText>
-            </Button>
-            <Button
-              size="sm"
-              action="positive"
-              borderWidth="$0"
-              onPress={() => {
-                setShowModal(false)
-              }}
-            >
-              <ButtonText>Explore</ButtonText>
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </Center>
+    <SafeAreaView>
+
+      <FlatList
+        data={data}
+        style={styles.list}
+        numColumns={3}
+        onEndReached={fetchMore}
+        keyExtractor={e => e}
+        renderItem={({ item }) => (
+          <Image source={{ uri: BASE_URI + item }} style={styles.item} />
+        )}
+      />
+    </SafeAreaView>
+
 
   )
 }
 
 export default Tab1
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// })
+import { StyleSheet } from 'react-native';
+
+const styles = StyleSheet.create({
+  list: {
+    width: '100%',
+    backgroundColor: '#000',
+  },
+  item: {
+    aspectRatio: 1,
+    width: '100%',
+    flex: 1,
+  },
+});
