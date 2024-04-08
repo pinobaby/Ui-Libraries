@@ -1,37 +1,33 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, SafeAreaView, FlatList } from 'react-native'
-import { Image, Input, InputField, InputIcon, InputSlot, SearchIcon } from '@gluestack-ui/themed';
 
-const BASE_URI = 'https://source.unsplash.com/random?sig=';
+import { Image, Input, InputField, InputIcon, InputSlot, SearchIcon } from '@gluestack-ui/themed';
+import { IconButton, Text, TouchableRipple } from 'react-native-paper'
+
 
 const Tab1 = () => {
 
-  const [data, setDate] = useState<number[]>([]);
 
-  useEffect(() => {
-    fetchMore();
-  }, []);
-  const fetchMore = () => {
-    setDate(prevState => [
-      ...prevState,
-      ...Array.from({ length: 20 }).map((_, i) => i + 1 + prevState.length),
-    ]);
-  };
+  const navigation = useNavigation()
 
   return (
-    <SafeAreaView>
-
-      <FlatList
-        data={data}
-        style={styles.list}
-        numColumns={3}
-        onEndReached={fetchMore}
-        keyExtractor={e => e}
-        renderItem={({ item }) => (
-          <Image source={{ uri: BASE_URI + item }} style={styles.item} />
-        )}
+    <TouchableRipple
+      borderless={true}
+      onPress={() => navigation.navigate('Tab2' as never)}
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 0,
+        borderColor: 'black',
+        borderWidth: 1,
+        marginTop: -3
+      }}>
+      <IconButton
+        icon='qrcode-scan'
+        size={30}
       />
-    </SafeAreaView>
+    </TouchableRipple>
+
 
 
   )
@@ -40,6 +36,7 @@ const Tab1 = () => {
 export default Tab1
 
 import { StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const styles = StyleSheet.create({
   list: {

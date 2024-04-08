@@ -7,7 +7,6 @@ const Tab3 = () => {
       <Image
         style={{ marginTop: 20 }}
         size="lg"
-        borderRadius="$full"
         source={{
           uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYMRmTOrZ8D1Dv4oPEOR04FVrpVFkF-XxuF2eSrS68Jg&s",
         }}
